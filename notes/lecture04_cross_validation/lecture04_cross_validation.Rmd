@@ -1,0 +1,35 @@
+---
+title: "stat447b_lecture04_cross_validation"
+author: "Niels Hanson"
+date: "September 16, 2014"
+output: html_document
+---
+
+```{r}
+setwd("~/Dropbox/courses/stat447B/notes/lecture04_cross_validation/")
+# get data
+library(SemiPar)
+data(lidar, package = 'SemiPar')
+```
+
+```{r}
+head(lidar)
+plot(logratio ~ range, data = lidar, pch = 19, col = 'gray', cex = 1.5)
+source("spline.basis.R")
+```
+
+```{r}
+x.mat <- spline.basis(lidar[, "range"], nknots = 5, knots = NULL,  degree = 1)
+head(x.mat)
+sp5 <- lm(lidar$logratio ~ x.mat, )
+```
+
+
+Setup our two folds
+ 
+```{r}
+set.seed(12345)
+folds = sample(1:2, nrow(lidar), replace=TRUE)
+head(spline.basis(lidar))
+head(lidar)
+```

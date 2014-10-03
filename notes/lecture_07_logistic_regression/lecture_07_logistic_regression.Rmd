@@ -1,0 +1,56 @@
+---
+title: "Stat447B: Lecture 7 - Logistical Regression"
+author: "Niels Hanson"
+date: "September 25, 2014"
+output: html_document
+---
+
+# Logistic Regression
+
+```{r}
+help(vaso, package='robustbase')
+data(vaso, package='robustbase')
+```
+
+* The $p_i$ are determined by only two parameters, $\beta_0$ and $\beta_0$.
+
+$$
+p_i = Pr(Y_i = 1 | v = v_i) = \frac{exp(\beta_0 + \beta_1 v_i)}{1 + exp(\beta_0 + \beta_1 v_i)}
+$$
+
+Requirements:
+
+* model has to be linear in the parameters
+* maps (predicts) to the mean of the y (i.e., its expected value)
+* accepable assumption over the family of distributions (exponential)
+* optimize via iterative least-squares
+
+Fit the one variable regression model with Volume. 
+
+* turns out this is not the very good
+
+### Clicker Question 1
+
+* Should rate be in the model?
+
+```{}
+
+## Model Comparison via Liklihood Ratio Tests
+
+* 
+
+```{r}
+(1- pchisq(q = 16, df = 1)) * 100
+```
+
+## Comparison via Misclassification Rate
+
+* For regression, error was mesured via the root mean squared error (RMSE)
+
+$$
+RMSE = \sqrt{\frac{1}{n}\sum_{i=1}^n (y_i - \hat{y}(x_i))^2}
+$$
+
+* for classification the fitted vales are $p_i$
+* We an turn the $\hat{p}_i$ into hard (0/1) predictions by thesholding
+
