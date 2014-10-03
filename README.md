@@ -3,7 +3,7 @@ stat447B_statistical_learning
 
 Course notes and code from Stat 447B at UBC 2014.
 
-* Class Instrictor: Will Welch
+* Class Instrictor: [Will J. Welch](http://www.stat.ubc.ca/~will/)
 * Class Website: <http://www.stat.ubc.ca/~will/STAT447B/>
 
 ## Contents
