@@ -9,3 +9,8 @@
 
 # RStudio files
 .Rproj.user/
+.Rproj.user
+README.html
+
+# Mac OSX Files
+.DS_Store
