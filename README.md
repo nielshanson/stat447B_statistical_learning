@@ -3,4 +3,8 @@ stat447B_statistical_learning
 
 Course notes and code from Stat 447B at UBC 2014.
 
-The Quick Brown Fox Jumped Over the Lazy Dog.
+## Contents
+
+* [assignments](assignments): directories for assignment work
+* [code](code): various code scripts
+* [notes](notes): notes from lectures and readings
