@@ -1,11 +1,6 @@
----
-title: 'Stat447B: Lecture 7 - Logistical Regression'
-author: "Niels Hanson"
-date: "September 25, 2014"
-output:
-  html_document:
-    keep_md: yes
----
+# Stat447B: Lecture 7 - Logistical Regression
+Niels Hanson  
+September 25, 2014  
 
 ## Logistic Regression
 
@@ -14,11 +9,22 @@ output:
     * `Rate`: the rate of inhalation
     * `Y`: a vector of 0 or 1 values
 
-```{r}
+
+```r
 help(vaso, package='robustbase')
 # Get data
 data(vaso, package = 'robustbase')
 head(vaso)
+```
+
+```
+##   Volume  Rate Y
+## 1   3.70 0.825 1
+## 2   3.50 1.090 1
+## 3   1.25 2.500 1
+## 4   0.75 1.500 1
+## 5   0.80 3.200 1
+## 6   0.70 3.500 1
 ```
 
 ### Overview
@@ -51,13 +57,16 @@ $$
 
 Fitting the one variable regression model with Volume:
 
-```{r}
+
+```r
 # Logistic regression on Volume
 plot(Y ~ Volume, data = vaso, pch = 19, col = Y + 1, cex = 1.5)
 vaso.glm1 <- glm(Y ~ Volume, data = vaso, family = 'binomial')
 lines(sort(vaso$Volume), vaso.glm1$fitted.values[order(vaso$Volume)], 
    lwd = 3, cex = 1.25)
 ```
+
+![plot of chunk unnamed-chunk-2](./lecture_07_logistic_regression_files/figure-html/unnamed-chunk-2.png) 
 
 * The curive is the prediction of $Pr(Y=1)$, note its *logistic* shape
 * Doesn't look like a very good fit, so how about we fit the second variable `Rate`
@@ -67,7 +76,8 @@ lines(sort(vaso$Volume), vaso.glm1$fitted.values[order(vaso$Volume)],
     $$
     p_i = \frac{exp( \eta( \boldsymbol{x}_i) )}{1 + exp( \eta( \boldsymbol{x}_i) )}
     $$
-```{r}
+
+```r
 vaso.glm2 <- glm(Y ~ Volume + Rate, data = vaso, family = 'binomial')
 ```
 
@@ -75,8 +85,35 @@ vaso.glm2 <- glm(Y ~ Volume + Rate, data = vaso, family = 'binomial')
 
 * Should `Rate` be in the model?
 
-```{r}
+
+```r
 summary(vaso.glm2)
+```
+
+```
+## 
+## Call:
+## glm(formula = Y ~ Volume + Rate, family = "binomial", data = vaso)
+## 
+## Deviance Residuals: 
+##    Min      1Q  Median      3Q     Max  
+## -1.507  -0.735   0.040   0.488   2.329  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(>|z|)   
+## (Intercept)   -9.530      3.233   -2.95   0.0032 **
+## Volume         3.882      1.429    2.72   0.0066 **
+## Rate           2.649      0.914    2.90   0.0038 **
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 54.040  on 38  degrees of freedom
+## Residual deviance: 29.772  on 36  degrees of freedom
+## AIC: 35.77
+## 
+## Number of Fisher Scoring iterations: 6
 ```
 
 * `Rate` variable seems to be highly significant from the $z$ value test, but assumptions of normality are abound.
@@ -119,13 +156,14 @@ $$
 
 Going back to our example we can see that the Deviance of our two model fits is reported:
 
-```{r}
+
+```r
 D_1 = vaso.glm1$deviance
 D_2 = vaso.glm2$deviance
 D_diff = D_1 - D_2
 ```
 
-Model 1 has a deviance of `r D_1`, while Model 2 has `r D_2`. The difference is `r D_diff`.
+Model 1 has a deviance of 46.9894, while Model 2 has 29.7723. The difference is 17.2171.
 
 ### Activity
 
@@ -135,7 +173,7 @@ Usually the smaller model.
 
 * What is $W$, i.e. the change in the deviance of the two models?
 
-`r D_diff`
+17.2171
 
 * To test $H_0$, how many degrees of freedom are used in the $\chi^2$ distribution?
 
@@ -143,11 +181,12 @@ This is the difference in the degrees of freedom of each model. So 1.
 
 * Is $H_0$ rejected?
 
-```{r}
+
+```r
 pval = (1- pchisq(q = D_diff, df = 1)) * 100
 ```
 
-`r D_diff` is a very extreme value for the $\chi^2_1$ distrbituion. 
+17.2171 is a very extreme value for the $\chi^2_1$ distrbituion. 
 
 ## Comparison via Misclassification Rate
 

@@ -13,4 +13,4 @@
 README.html
 
 # Mac OSX Files
-*.DS_Store
+.DS_Store
